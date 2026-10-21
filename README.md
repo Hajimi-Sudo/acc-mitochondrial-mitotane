@@ -43,7 +43,6 @@ Public model and external-context analyses:
 - `remote_gse140818_factorial_analysis.py`
 - `remote_gse73417_xenograft_mito_analysis.py`
 - `remote_external_gse19750.py`
-- `remote_add_gse19750_package.py`
 
 Robustness, multiplicity, and evidence packaging:
 
@@ -51,13 +50,10 @@ Robustness, multiplicity, and evidence packaging:
 - `remote_multiple_testing_audit.py`
 - `remote_sensitivity_gate.py`
 - `remote_build_evidence_manifest.py`
-- `remote_make_robustness_package.py`
-- `remote_make_publication_package.py`
 
 Figure rendering:
 
 - `remote_render_jpg_figures.py`
-- `render_aggregate_figures.py`
 
 ## Execution order
 
