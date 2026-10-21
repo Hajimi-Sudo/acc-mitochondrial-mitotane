@@ -1,30 +1,13 @@
-# ACC mitochondrial oxidative-metabolism analysis
+# Mitochondrial oxidative-metabolism analysis code
 
-This repository contains the remote-only scripts for scoring mitochondrial
-oxidative metabolism and analyzing public adrenocortical carcinoma expression
-data in treatment-related model contexts.
+This directory contains scripts for public-data acquisition, preprocessing,
+statistical analysis, robustness assessment, and figure-data generation. They
+are designed for execution on the isolated remote project root
+`/root/autodl-tmp/acc-mitochondrial-mitotane`.
 
-The repository contains code only. It does not contain raw expression matrices,
-patient-level clinical records, controlled-access files, credentials, private
-execution outputs, or manuscript files.
-
-## Execution boundary
-
-All data acquisition, preprocessing, statistical analysis, and figure
-generation must run under an isolated remote project root. The scripts use the
-default path `/root/autodl-tmp/acc-mitochondrial-mitotane`, which can be
-overridden only where a script explicitly exposes a project-root option or
-environment variable.
-
-Do not run the data acquisition or analysis scripts on a local machine that is
-not approved for the data. Do not place restricted or patient-level data in a
-Git repository.
-
-## Data sources
-
-The scripts use public resources identified by accession: TCGA-ACC, GSE76019,
-GSE140818, GSE186870, GSE73417, and GSE19750. HRA006596 is controlled access
-and is not included or downloaded by this repository.
+Raw expression matrices, patient-level clinical records, controlled-access
+files, credentials, and remote result directories are not part of this code
+release.
 
 ## Script groups
 
@@ -38,9 +21,11 @@ Data access and audit:
 - `remote_download_aria2.sh`
 - `make_aria2_list.py`
 - `remote_validate_tcga_download.py`
+- `remote_audit_gsa_access.py`
 - `remote_search_public_drug_sensitivity.py`
+- `remote_audit_new_mitotane_paper.py`
 
-Preprocessing and discovery analysis:
+Clinical and expression preprocessing:
 
 - `remote_fetch_tcga_clinical.py`
 - `remote_fetch_cbioportal_patient_clinical.py`
@@ -50,41 +35,47 @@ Preprocessing and discovery analysis:
 - `remote_discovery_module.py`
 - `remote_signal_pilot.py`
 
-External and model-system analyses:
+Public model and external-context analyses:
 
-- `remote_external_gse19750.py`
 - `remote_gse140818_mito_analysis.py`
 - `remote_gse140818_effect_stats.py`
 - `remote_gse140818_adjusted_stats.py`
 - `remote_gse140818_factorial_analysis.py`
 - `remote_gse73417_xenograft_mito_analysis.py`
+- `remote_external_gse19750.py`
+- `remote_add_gse19750_package.py`
 
-Robustness and figure generation:
+Robustness, multiplicity, and evidence packaging:
 
 - `remote_robustness_analysis.py`
 - `remote_multiple_testing_audit.py`
 - `remote_sensitivity_gate.py`
+- `remote_build_evidence_manifest.py`
+- `remote_make_robustness_package.py`
+- `remote_make_publication_package.py`
+
+Figure rendering:
+
 - `remote_render_jpg_figures.py`
+- `render_aggregate_figures.py`
 
-## Suggested execution order
+## Execution order
 
-1. Run the remote identity, storage, access, and public-data audits.
-2. Acquire and preprocess public data under the isolated remote root.
-3. Run mitochondrial scoring and state construction.
+1. Run remote identity, storage, access, and public-data audits.
+2. Acquire and preprocess data under the remote project root.
+3. Run mitochondrial scoring and state-construction analysis.
 4. Run external expression, endocrine, HAC15, and xenograft context analyses.
 5. Run robustness and multiple-testing audits.
-6. Render aggregate figures from recorded analysis outputs.
+6. Build aggregate publication outputs and the evidence manifest.
 
-The scripts support hypothesis generation and model-system context. They do not
-establish a patient-level mitotane-response classifier without sample-matched
-pretreatment molecular data and a direct response endpoint.
+The exact paths and cohort roles are recorded in the project contracts under
+`00_contract/`. The evidence ceiling remains hypothesis generation. These
+scripts do not create a patient-level mitotane-response classifier without a
+sample-matched response endpoint.
 
-## Requirements
+## Runtime requirements
 
-Python 3.10 or later is recommended. Install the packages in
-`requirements.txt` in the remote environment. Network access is required only
-for remote metadata and public-data acquisition scripts.
-
-## License
-
-The code is released under the MIT License. See `LICENSE`.
+The analysis uses Python 3.10 or later with the packages listed in
+`requirements.txt`. Network access is required only for remote acquisition and
+metadata-audit scripts. Analysis scripts read and write only under the
+configured remote project root.

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -eu
 
-PROJECT_ROOT=${PROJECT_ROOT:-/root/autodl-tmp/acc-mitochondrial-mitotane}
-PYTHON_BIN=${PYTHON_BIN:-python3}
+PROJECT_ROOT=/root/autodl-tmp/acc-mitochondrial-mitotane
 OUT="$PROJECT_ROOT/results/pilot"
 mkdir -p "$OUT"
 LOG="$PROJECT_ROOT/logs/data_availability_audit.log"
@@ -15,7 +14,7 @@ echo '--- GSE76019 series/sample annotations ---' | tee "$OUT/GSE76019_annotatio
 eval "$NCBI_CURL 'https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE76019&targ=self&form=text&view=quick'" | awk '/^\^SERIES|^!Series_title|^!Series_overall_design|^!Series_status|^!Series_pubmed_id|^!Series_sample_id/ {print}' | tee -a "$OUT/GSE76019_annotation_audit.txt"
 PARTS="$OUT/GSE76019_sample_parts"
 mkdir -p "$PARTS"
-"$PYTHON_BIN" - "$PARTS" <<'PY'
+/root/miniconda3/bin/python - "$PARTS" <<'PY'
 import concurrent.futures, pathlib, sys, urllib.request
 out = pathlib.Path(sys.argv[1])
 prefix = ('^SAMPLE', '!Sample_title', '!Sample_source_name_ch1',

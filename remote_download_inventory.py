@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/root/miniconda3/bin/python
 """Remote-only TCGA-ACC inventory and resumable downloader."""
 import argparse
 import hashlib
